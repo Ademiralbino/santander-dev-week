@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://roundhouse.proxy.rlwy.net:48226/railway
-    username: postgres
-    password: lZpVPiRUiGvyfrvwJYYUWHCIkTxApCOU
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://roundhouse.proxy.rlwy.net:48226/railway}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:lZpVPiRUiGvyfrvwJYYUWHCIkTxApCOU}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
