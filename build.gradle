@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '4.1.0'
+	id 'org.springframework.boot' version '3.4.1'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -23,7 +23,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
 
-	// REQUISITO DO SPRING BOOT 4 PARA O H2 LOCAL
+	// REQUISITO PARA O H2 LOCAL
 	// O escopo 'developmentOnly' impede que o H2 seja empacotado para o Railway
 	developmentOnly 'org.springframework.boot:spring-boot-h2console'
 	developmentOnly 'com.h2database:h2'
@@ -36,16 +36,15 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.jar{
-	manifest {
-		attributes["Main-Class"] = "me.dio.Application"
-	}
+// Desativa a criação do JAR comum (incompleto) e foca apenas no bootJar (completo)
+jar {
+	enabled = false
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
 tasks.withType(JavaCompile) {
 	options.compilerArgs << "-Xlint:deprecation"
 }
-
