@@ -18,18 +18,28 @@ repositories {
 }
 
 dependencies {
-	// 1. CORRIGIDO: Modificado de 'spring-boot-h2console' para 'spring-boot-starter-web' (ou jpa/devtools já cobrem o H2)
+	// Web e JPA (Estrutura principal do projeto)
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
 
-	runtimeOnly 'com.h2database:h2'
+	// REQUISITO DO SPRING BOOT 4 PARA O H2 LOCAL
+	// O escopo 'developmentOnly' impede que o H2 seja empacotado para o Railway
+	developmentOnly 'org.springframework.boot:spring-boot-h2console'
+	developmentOnly 'com.h2database:h2'
+
+	// Driver do PostgreSQL (Usado estritamente em produção no ambiente do Railway)
 	runtimeOnly 'org.postgresql:postgresql'
 
-	// 2. CORRIGIDO: No Spring Boot 4, usamos o starter-test unificado ou os módulos focados corretos
+	// Testes Automatizados
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.jar{
+	manifest {
+		attributes["Main-Class"] = "me.dio.Application"
+	}
 }
 
 tasks.named('test') {
