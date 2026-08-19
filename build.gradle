@@ -23,10 +23,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
 
-	// REQUISITO PARA O H2 LOCAL
-	// O escopo 'developmentOnly' impede que o H2 seja empacotado para o Railway
-	developmentOnly 'org.springframework.boot:spring-boot-h2console'
-	developmentOnly 'com.h2database:h2'
+	// Banco de Dados Local (H2) para Desenvolvimento
+	// O escopo 'developmentOnly' impede que essas ferramentas subam para o Railway
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
 
 	// Driver do PostgreSQL (Usado estritamente em produção no ambiente do Railway)
 	runtimeOnly 'org.postgresql:postgresql'
@@ -36,7 +36,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-// Desativa a criação do JAR comum (incompleto) e foca apenas no bootJar (completo)
+// Desativa a criação do JAR simples incompleto para não confundir o Procfile
 jar {
 	enabled = false
 }
